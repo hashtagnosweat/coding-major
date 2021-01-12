@@ -17,7 +17,8 @@ data-aos="fade-up"
   <div class="dashboard-content">
     <div class="row">
       <div class="col-12">
-        <form action="">
+        <form action="{{ route('dashboard-settings-redirect', 'dashboard-settings-account') }}" method="POST" enctype="multipart/form-data">
+        @csrf
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
@@ -30,7 +31,7 @@ data-aos="fade-up"
                       id="name"
                       aria-describedby="emailHelp"
                       name="name"
-                      value="Ratih"
+                      value="{{ $user->name }}"
                     />
                   </div>
                 </div>
@@ -43,55 +44,11 @@ data-aos="fade-up"
                       id="email"
                       aria-describedby="emailHelp"
                       name="email"
-                      value="email@gmail.com"
+                      value="{{ $user->email }}"
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="addressOne"
-                      >Input Old Password</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="addressOne"
-                      aria-describedby="emailHelp"
-                      name="addressOne"
-                      value="Setra Duta Cemara"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="addressTwo"
-                      >Input New Password</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="addressTwo"
-                      aria-describedby="emailHelp"
-                      name="addressTwo"
-                      value="Blok B2 No. 34"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="Occupation">Occupation</label>
-                    <select
-                      name="Occupation"
-                      id="Occupation"
-                      class="form-control"
-                    >
-                      <option value="College Student">
-                        College Student
-                      </option>
-                      <option value="Employee">Employee</option>
-                    </select>
-                  </div>
-                </div>
+
               </div>
               <div class="row">
                 <div class="col text-right">

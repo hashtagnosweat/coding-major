@@ -30,9 +30,9 @@
             />
           </div>
           <div class="list-group list-group-flush">
-            <a
-              href="#"
-              class="list-group-item list-group-item-action"
+            {{-- <a
+              href="{{ route('dashboard') }} "
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard')) ? 'active' : '' }}"
             >
               Dashboard
             </a>
@@ -41,21 +41,27 @@
               class="list-group-item list-group-item-action"
             >
               My Class
-            </a>
+            </a> --}}
             <a
-              href="#"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-settings-account') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}"
             >
               My Account
             </a>
             <a
-              href="#"
+             href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"
               class="list-group-item list-group-item-action"
             >
               Sign Out
             </a>
           </div>
         </div>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -101,25 +107,26 @@
                       alt=""
                       class="rounded-circle mr-2 profile-picture"
                     />
-                    Hi, Ratih
+                    Hi, {{ Auth::user()->name }}
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/index.html">Landing Page</a>
-                    <a class="dropdown-item" href="/dashboard-account.html"
-                      >Settings</a
-                    >
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/">Logout</a>
-                  </div>
+                  <div class="dropdown-menu">
+                  {{-- <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a> --}}
+                  <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item"
+                    >Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" class="dropdown-item">Logout</a>
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                </div>
                 </li>
               </ul>
               <!-- Mobile Menu -->
               <ul class="navbar-nav d-block d-lg-none mt-3">
                 <li class="nav-item">
-                  <a class="nav-link" href="#"> Hi, Ratih </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link d-inline-block" href="#"> Cart </a>
+                  <a class="nav-link" href="#"> Hi, {{ Auth::user()->name }} </a>
                 </li>
               </ul>
             </div>

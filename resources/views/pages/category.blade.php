@@ -12,74 +12,30 @@
         <div class="container">
           <div class="row">
             <div class="col-12" data-aos="fade-up">
-              <h5>Course Categories</h5>
+              <h5> Course Categories</h5>
             </div>
           </div>
           <div class="row">
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <!-- Refer ke halaman categories (belum ada) -->
-              <a href="#" class="component-categories d-block">
-                <div class="categories-image">
-                  <img src="/images/categories-web.svg" alt="" class="pt-3" />
-                </div>
-                <p class="categories-text mt-5 web1">Web Development</p>
-              </a>
-            </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <!-- Refer ke halaman categories (belum ada) -->
-              <a href="#" class="component-categories d-block">
-                <div class="categories-image">
-                  <img
-                    src="/images/categories-mobile.svg"
-                    alt=""
-                    class="pt-3"
-                  />
-                </div>
-                <p class="categories-text">Mobile Development</p>
-              </a>
-            </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <!-- Refer ke halaman categories (belum ada) -->
-              <a href="#" class="component-categories d-block">
-                <div class="categories-image">
-                  <img
-                    src="/images/categories-desktop.svg"
-                    alt=""
-                    class="pt-3"
-                  />
-                </div>
-                <p class="categories-text">Desktop Development</p>
-              </a>
-            </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <!-- Refer ke halaman categories (belum ada) -->
-              <a href="#" class="component-categories d-block">
-                <div class="categories-image">
-                  <img
-                    src="/images/categories-datascience.svg"
-                    alt=""
-                    class="pt-3"
-                  />
-                </div>
-                <p class="categories-text mt-5">Data Science</p>
-              </a>
-            </div>
+            @php $incrementCategory = 0 @endphp
+                        @forelse ($categories as $category)
+                        <div
+                        class="col-6 col-md-4 col-lg-3"
+                        data-aos="fade-up"
+                        data-aos-delay="{{ $incrementCategory += 100}}"
+                    >
+                        <!-- Refer ke halaman categories (belum ada) -->
+                        <a href="{{ route('categories-detail', $category->slug) }}" class="component-categories d-block">
+                        <div class="categories-image">
+                            <img src="{{ Storage::url($category->photo) }}" alt="" class="pt-3" />
+                        </div>
+                        <p class="categories-text mt-5">{{ $category->name }}</p>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-12 text-center py-5" 
+                        data-aos="fade-up"
+                        data-aos-delay="100"> No Categories Found</div>
+                @endforelse
           </div>
         </div>
       </section>
@@ -94,81 +50,44 @@
           </div>
           <div class="row">
             <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <a href="/details.html" class="component-products d-block">
-                <div class="products-thumbnail">
-                  <div
-                    class="products-image"
-                    style="
-                      background-image: url('/images/products-javascript.jpg');
-                    "
-                  ></div>
-                </div>
-                <div class="products-text">
-                  The Complete JavaScript Course 2020: From Zero to Expert!
-                </div>
-                <div class="products-price">Rp126,000</div></a
-              >
+     @php $incrementCourse = 0 @endphp
+        @forelse ($courses as $course)
+          <div
+            class="col-6 col-md-4 col-lg-3"
+            data-aos="fade-up"
+            data-aos-delay="{{ $incrementCourse += 100}}"
+        >
+            <a href="{{ route('detail', $course->slug) }}" class="component-products d-block">
+            <div class="products-thumbnail">
+                <div
+                class="products-image"
+                style="
+                    @if($course->galleries->count()) 
+                        background-image: url('{{ Storage::url($course->galleries->first()->photos) }}')
+                    @else
+                        background-color: #eee
+                    @endif
+                "
+                ></div>
             </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <a href="/details.html" class="component-products d-block">
-                <div class="products-thumbnail">
-                  <div
-                    class="products-image"
-                    style="
-                      background-image: url('/images/products-xamarin.jpg');
-                    "
-                  ></div>
-                </div>
-                <div class="products-text">
-                  The Complete Xamarin Developer Course: iOS And Android!
-                </div>
-                <div class="products-price">Rp156,000</div></a
-              >
+            <div class="products-text">
+                {{ $course->name }}
             </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <a href="/details.html" class="component-products d-block">
-                <div class="products-thumbnail">
-                  <div
-                    class="products-image"
-                    style="background-image: url('/images/products-c++.jpg')"
-                  ></div>
-                </div>
-                <div class="products-text">
-                  C++ Programming - From Beginner to Beyond
-                </div>
-                <div class="products-price">Rp146,000</div></a
-              >
+</a
+            >  
+          </div>
+        @empty
+             <div class="col-12 text-center py-5" 
+            data-aos="fade-up"
+            data-aos-delay="100"> No Courses Found</div>
+        @endforelse
+          </div>
+          <div class="row">
+            <div class="col-12 mt-4">
+
+              {{ $courses->links() }}
             </div>
-            <div
-              class="col-6 col-md-4 col-lg-3"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <a href="/details.html" class="component-products d-block">
-                <div class="products-thumbnail">
-                  <div
-                    class="products-image"
-                    style="background-image: url('/images/products-python.jpg')"
-                  ></div>
-                </div>
-                <div class="products-text">
-                  Python Programming for Beginners in Data Science
-                </div>
-                <div class="products-price">Rp176,000</div></a
-              >
-            </div>
+            </mt-4>
           </div>
         </div>
       </section>
